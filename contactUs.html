@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f0fdf4;
+      color: #333;
+    }
+
+    header {
+      background-color: #4CAF50;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .formSection {
+      background: #e8f5e9;
+      margin: 20px auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 700px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 128, 0, 0.1);
+    }
+
+    .formSection h2 {
+      color: #2e7d32;
+    }
+
+    .formGroup {
+      margin-bottom: 15px;
+    }
+
+    .formGroup label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .formGroup input,
+    .formGroup select,
+    .formGroup textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #c8e6c9;
+      border-radius: 6px;
+    }
+
+    .formGroup input[type="submit"] {
+      background-color: #43a047;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .formGroup input[type="submit"]:hover {
+      background-color: #2e7d32;
+    }
+
+    footer {
+      background-color: #2e7d32;
+      text-align: center;
+      padding: 15px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>Pet Adoption Centre</h1>
+      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="adopt.html">Adopt a Pet</a></li>
+        <li><a href="calculate.html">Calculate cost of care</a></li>
+        <li><a href="#donate">Donate</a></li>
+        <li><a href="contactUs.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>Welcome to the Pet Adoption Centre</h1>
+    <p>Your new best friend is waiting for you. Adopt, don't shop!</p>
+  </section>
+  <!-- input form for get datils about customer  -->
+  <section class="formSection">
+    <form id="adoptionForm" action="submit.php" method="POST" enctype="multipart/form-data">
+      <h2>Personal Information</h2>
+      <div class="formGroup">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required />
+      </div>
+      <div class="formGroup">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" />
+      </div>
+      <div class="formGroup">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div class="formGroup">
+        <label for="address">Home Address:</label>
+        <textarea id="address" name="address" rows="3" required></textarea>
+      </div>
+
+      <h2>Pet Inquiry</h2>
+      <div class="formGroup">
+        <label for="gmail">Gmail Address:</label>
+        <input type="email" id="gmail" name="gmail" required pattern=".+@gmail\.com" />
+      </div>
+      <div class="formGroup">
+        <label for="petType">Pet Type:</label>
+        <select id="petType" name="petType" required onchange="updateBreeds()">
+          <option value="">--Select--</option>
+          <option value="Dog">Dog</option>
+          <option value="Cat">Cat</option>
+          <option value="Rabbit">Rabbit</option>
+        </select>
+      </div>
+      <div class="formGroup">
+        <label for="petBreed">Pet Breed:</label>
+        <select id="petBreed" name="petBreed" required>
+          <option value="">--Select a pet type first--</option>
+        </select>
+      </div>
+      <div class="formGroup">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+      </div>
+
+      <div class="formGroup">
+        <label for="petImage">Upload Pet/Home Image (optional):</label>
+        <input type="file" id="petImage" name="petImage" accept="image/*">
+      </div>
+      
+
+      <div class="formGroup">
+        <input type="submit" value="Submit Inquiry" />
+      </div>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Pet Adoption Centre. All rights reserved.</p>
+  </footer>
+  <!-- JavaScript to handle breed selection based on pet type -->
+  <script>
+    const breeds = {
+      Dog: ["Labrador", "Beagle", "German Shepherd"],
+      Cat: ["Persian", "Siamese", "Maine Coon"],
+      Rabbit: ["Dutch", "Lionhead", "Flemish Giant"]
+    };
+    // Function to update breed options based on selected pet type
+    function updateBreeds() {
+      const type = document.getElementById("petType").value;
+      const breedSelect = document.getElementById("petBreed");
+      breedSelect.innerHTML = '<option value="">--Select--</option>';
+      if (breeds[type]) {
+        breeds[type].forEach(breed => {
+          const option = document.createElement("option");
+          option.value = breed;
+          option.textContent = breed;
+          breedSelect.appendChild(option);
+        });
+      }
+    };
+  </script>
+</body>
+</html>

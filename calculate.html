@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- adding outer css file -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* GENERAL STYLES */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f0fdf4;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* CALCULATOR */
+        #calculator-container {
+            width: 350px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 128, 0, 0.1);
+        }
+
+        #calculator-container label {
+            font-weight: 600;
+            margin: 10px 0 5px;
+            display: block;
+        }
+
+        #calculator-container select,
+        #calculator-container input[type="number"],
+        #calculator-container input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border-radius: 5px;
+            border: 1px solid #a5d6a7;
+        }
+
+        #calculator-container input[type="submit"] {
+            background-color: #43a047;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+        }
+
+        #calculator-container input[type="submit"]:hover {
+            background-color: #2e7d32;
+        }
+
+        #result-container {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 15px;
+            color: #1b5e20;
+        }
+
+        footer {
+            background-color: #2e7d32;
+            text-align: center;
+            padding: 15px;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Pet Adoption Centre</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="adopt.html">Adopt a Pet</a></li>
+                <li><a href="calculate.html">Calculate cost of care</a></li>
+                <li><a href="#donate">Donate</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <!-- create input field for calculating cost of care -->
+        <div id="calculator-container">
+            <form id="costForm">
+                <label for="animal">Select Animal:</label>
+                <select id="animal" name="animal" required onchange="updateBreedOptions()">
+                    <option value="">Select</option>
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="rabbit">Rabbit</option>
+                </select>
+
+                <label for="breed">Select Breed/Type:</label>
+                <select id="breed" name="breed" required>
+                    <option value="">Select</option>
+                </select>
+
+                <h4>Monthly Care Details:</h4>
+                <label>Food Cost ($): <input type="number" name="food_cost" min="0" required></label>
+                <label>Vet Visits ($): <input type="number" name="vet_cost" min="0" required></label>
+                <label>Grooming ($): <input type="number" name="grooming_cost" min="0" required></label>
+                <label>Accessories ($): <input type="number" name="accessories_cost" min="0" required></label>
+
+                <input type="submit" value="Calculate Care Cost">
+            </form>
+            <div id="result-container"></div>
+        </div>
+    </section>
+
+    <section class="hero">
+        <h1>Welcome to the Pet Adoption Centre</h1>
+        <p>Lets see how costly is ypu buddy</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Pet Adoption Centre. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript to handle breed selection and cost calculation -->
+    <script>
+        const breedOptions = {
+            dog: ["Labrador", "Bulldog", "German Shepherd"],
+            cat: ["Persian", "Siamese", "Maine Coon"],
+            rabbit: ["Dutch", "Lionhead", "Flemish Giant"]
+        };
+        // Function to update breed options based on selected animal 
+        function updateBreedOptions() {
+            const animal = document.getElementById("animal").value;
+            const breedSelect = document.getElementById("breed");
+            breedSelect.innerHTML = '<option value="">--Select--</option>';
+            if (breedOptions[animal]) {
+                breedOptions[animal].forEach(breed => {
+                    const option = document.createElement("option");
+                    option.value = breed;
+                    option.textContent = breed;
+                    breedSelect.appendChild(option);
+                });
+            }
+        }
+        // Function to calculate the cost of care of pat
+        document.getElementById('costForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const food = parseFloat(this.food_cost.value) || 0;
+            const vet = parseFloat(this.vet_cost.value) || 0;
+            const grooming = parseFloat(this.grooming_cost.value) || 0;
+            const accessories = parseFloat(this.accessories_cost.value) || 0;
+            const totalMonthly = food + vet + grooming + accessories;
+            const totalYearly = totalMonthly * 12;
+            document.getElementById('result-container').innerHTML = `
+                <strong>Estimated Monthly Cost:</strong> $${totalMonthly.toFixed(2)}<br>
+                <strong>Estimated Yearly Cost:</strong> $${totalYearly.toFixed(2)}
+            `;
+        });
+    </script>
+</body>
+
+</html>

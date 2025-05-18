@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Adoption Centre</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    /* adding css for image slider*/
+            .slider {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          }
+      
+          .slider img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+          }
+      /* formating navigation bar button */
+          .slider img.active {
+            opacity: 1;
+          }
+          .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+          }
+      
+          .prev {
+            left: 10px;
+          }
+      
+          .next {
+            right: 10px;
+            }
+        </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Pet Adoption Centre</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">About Us</a></li>
+                <li><a href="adopt.html">Adopt a Pet</a></li>
+                <li><a href="calculate.html">Calculate cost of care</a></li>
+                <li><a href="index.html">Donate</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+                <!-- from Inquiries you are able to see which Inquiries are filed  -->
+                <li><a href="inquiries.html">Inquiries</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <section class="hero" id="home">
+        <h1>Welcome to the Pet Adoption Centre</h1>
+        <p>someone special is waiting for you behind the screen</p>
+    </section>
+
+    <div class="slider">
+        <img src="images/p1.jpg" class="active" alt="Pet 1">
+        <img src="images/p2.jpg" alt="Pet 2">
+        <img src="images/p3.jpg" alt="Pet 3">
+        <img src="images/p4.jpg" alt="Pet 4">
+        <img src="images/p5.jpg" alt="Pet 5">
+        <img src="images/p6.jpg" alt="Pet 6">
+        <img src="images/p7.jpg" alt="Pet 7">
+        <img src="images/p8.jpg" alt="Pet 8">
+        <img src="images/p9.jpg" alt="Pet 9">
+        <img src="images/p10.jpg" alt="Pet 10">
+        <img src="images/p11.jpg" alt="Pet 11">
+        <img src="images/p12.jpg" alt="Pet 12">
+        <img src="images/p13.jpg" alt="Pet 13">
+      </div>
+    
+    <footer>
+        <p>&copy; 2025 Pet Adoption Centre. All rights reserved.</p>
+    </footer>
+
+    <!-- adding java script for auto change picture in slider -->
+    <script>
+        const slides = document.querySelectorAll('.slider img');
+        let current = 0;
+    
+        setInterval(() => {
+          slides[current].classList.remove('active');
+          current = (current + 1) % slides.length;
+          slides[current].classList.add('active');
+        }, 4000); // change image every 4 seconds
+      </script>
+    
+</body>
+</html>
